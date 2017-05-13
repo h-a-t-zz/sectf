@@ -1,7 +1,9 @@
+import os
 from flask import Flask, send_file, request, send_from_directory
+
 app = Flask(__name__, static_url_path='')
 
-@app.route("/register", methods=['GET','POST'])
+@app.route("/register", methods=['POST'])
 def register():
     errors = []
     results = {}
@@ -18,9 +20,10 @@ def register():
     return render_template('index.html', errors=errors, results=results)
 
 
-@app.route("/<path:path>")
+@app.route("/<path:path>", methods=['GET'])
 def main():
     return send_from_directory('static', path)
+
 
 
 if __name__ == "__main__":
