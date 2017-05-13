@@ -34,7 +34,7 @@ services:
       - "container_group=www"
       - "traefik.enable=true"
       - "traefik.backend=web"
-      - "traefik.frontend.rule=Host:www"
+      - "traefik.frontend.rule=Host:www.se-exe.org"
       - "traefik.port=80"
 
 
@@ -54,5 +54,5 @@ services:
       - "container_group=data"
       - "traefik.enable=true"
       - "traefik.backend=elk"
-      - "traefik.frontend.rule=Host:cc"
+      - "traefik.frontend.rule=Host:cc.se-exe.org"
       - "traefik.port=5601"

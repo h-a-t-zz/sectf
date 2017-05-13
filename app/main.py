@@ -1,8 +1,10 @@
 import os
 import json
+from elasticsearch import Elasticsearch
 from flask import Flask, send_file, request, send_from_directory, render_template
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__)
+
 
 @app.route("/register", methods=['POST'])
 def register():
@@ -17,16 +19,24 @@ def register():
         try:
             info = request.get_json()
             print(info)
+            timestmp = info['timestamp']
+            es = Elasticsearch([{'host': 'elk', 'port': 9200}])
+            es.index(index='lustig', doc_type='mark', id=timestmp, body=request.get_json())
+            return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
         except:
             errors.append(
-                "Unable to get URL. Please make sure it's valid and try again."
+                "Unable to get ES. Please make sure it's up and try again."
             )
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+            print errors
+            return json.dumps({'success':False}), 400, {'ContentType':'application/json'}
 
-
+@app.route('/', defaults={'path': 'index.html'})
 @app.route("/<path:path>", methods=['GET'])
-def main():
+def catch_all(path):
     return send_from_directory('static', path)
+
+
 
 
 
