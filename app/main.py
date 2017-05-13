@@ -1,5 +1,6 @@
 import os
-from flask import Flask, send_file, request, send_from_directory
+import json
+from flask import Flask, send_file, request, send_from_directory, render_template
 
 app = Flask(__name__, static_url_path='')
 
@@ -9,15 +10,18 @@ def register():
     results = {}
     if request.method == "POST":
         # get url that the user has entered
+        #   name: name,
+        #phone: phone,
+        #email: email,
+        #message: message
         try:
-            url = request.form['url']
-            r = requests.get(url)
-            print(r.text)
+            info = request.get_json()
+            print(info)
         except:
             errors.append(
                 "Unable to get URL. Please make sure it's valid and try again."
             )
-    return render_template('index.html', errors=errors, results=results)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
 @app.route("/<path:path>", methods=['GET'])

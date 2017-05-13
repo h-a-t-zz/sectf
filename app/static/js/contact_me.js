@@ -20,14 +20,15 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "././mail/contact_me.php",
+                url: "/register",
                 type: "POST",
-                data: {
+                contentType: 'application/json',
+                data: JSON.stringify({
                     name: name,
                     phone: phone,
                     email: email,
                     message: message
-                },
+                }),
                 cache: false,
                 success: function() {
                     // Success message
