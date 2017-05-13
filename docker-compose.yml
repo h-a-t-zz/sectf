@@ -23,7 +23,8 @@ services:
 
   # Spins up a Jenkins Instance to build code
   web:
-    image: tiangolo/uwsgi-nginx-flask:flask-index
+    build: ./app
+    image: webapp:latest
     expose:
       - 80
     restart: always
@@ -43,9 +44,9 @@ services:
   elk:
     image: sebp/elk
     expose:
-      - "5601:5601"
-      - "9200:9200"
-      - "5044:5044"
+      - "5601"
+      - "9200"
+      - "5044"
     environment:
       - ES_HEAP_SIZE=2g
       - "LS_HEAP_SIZE=1g"
