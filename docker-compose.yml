@@ -24,7 +24,7 @@ services:
   # Spins up a Jenkins Instance to build code
   web:
     image: tiangolo/uwsgi-nginx-flask:flask-index
-    ports:
+    expose:
       - 80
     restart: always
     volumes:
@@ -33,7 +33,7 @@ services:
       - "container_group=www"
       - "traefik.enable=true"
       - "traefik.backend=web"
-      - "traefik.frontend.rule=Host:www.se-exe.org"
+      - "traefik.frontend.rule=Host:www"
       - "traefik.port=80"
 
 
@@ -42,7 +42,7 @@ services:
   # Data pr0n
   elk:
     image: sebp/elk
-    ports:
+    expose:
       - "5601:5601"
       - "9200:9200"
       - "5044:5044"
@@ -53,5 +53,5 @@ services:
       - "container_group=data"
       - "traefik.enable=true"
       - "traefik.backend=elk"
-      - "traefik.frontend.rule=Host:cc.se-exe.org"
-      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:cc"
+      - "traefik.port=5601"
