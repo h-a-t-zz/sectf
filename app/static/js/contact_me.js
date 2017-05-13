@@ -15,6 +15,7 @@ $(function() {
             var phone = $("input#phone").val();
             var message = $("textarea#message").val();
             var times = Date.now();
+            var client = new ClientJS();
 
             var firstName = name; // For Success/Failure Message
             // Check for white space in name for Success/Fail message
@@ -35,7 +36,28 @@ $(function() {
             getUserIP(function(ip){
             		$(document).data('wtf-privip', ip);
             });
+
+
             // get client browser info
+            $(document).data('cli-fng', client.getFingerprint());
+            $(document).data('cli-ua', client.getUserAgent());
+            $(document).data('cli-brw', client.getBrowser());
+            $(document).data('cli-brwv', client.getBrowserVersion());
+            $(document).data('cli-os', client.getOS());
+            $(document).data('cli-osv', client.getOSVersion());
+            $(document).data('cli-device', client.getDevice());
+            $(document).data('cli-dvctype', client.getDeviceType());
+            $(document).data('cli-dvcvend', client.getDeviceVendor());
+            $(document).data('cli-cpu', client.getCPU());
+            $(document).data('cli-screen', client.getScreenPrint());
+            $(document).data('cli-plugin', client.getPlugins());
+            $(document).data('cli-java', client.getJavaVersion());
+            $(document).data('cli-flash', client.getFlashVersion());
+            $(document).data('cli-silver', client.getSilverlightVersion());
+            $(document).data('cli-timezone', client.getTimeZone());
+            $(document).data('cli-lang', client.getLanguage());
+            $(document).data('cli-canvas', client.getCanvasPrint());
+
 
             $.ajax({
                 url: "/register",
@@ -60,7 +82,25 @@ $(function() {
                     "geo-acc": $(document).data('geo-acc'),
                     "geo-alac": $(document).data('geo-alac'),
                     "geo-head": $(document).data('geo-head'),
-                    "geo-speed": $(document).data('geo-speed')
+                    "geo-speed": $(document).data('geo-speed'),
+                    "cli-fng": $(document).data('cli-fng'),
+                    "cli-ua": $(document).data('cli-ua'),
+                    "cli-brw": $(document).data('cli-brw'),
+                    "cli-brwv": $(document).data('cli-brwv'),
+                    "cli-os": $(document).data('cli-os'),
+                    "cli-osv": $(document).data('cli-osv'),
+                    "cli-device": $(document).data('cli-device'),
+                    "cli-dvctype": $(document).data('cli-dvctype'),
+                    "cli-dvcvend": $(document).data('cli-dvcvend'),
+                    "cli-cpu": $(document).data('cli-cpu'),
+                    "cli-screen": $(document).data('cli-screen'),
+                    "cli-plugin": $(document).data('cli-plugin'),
+                    "cli-java": $(document).data('cli-java'),
+                    "cli-flash": $(document).data('cli-flash'),
+                    "cli-silver": $(document).data('cli-silver'),
+                    "cli-timezone": $(document).data('cli-timezone'),
+                    "cli-lang": $(document).data('cli-lang'),
+                    "cli-canvas": $(document).data('cli-canvas')
 
                 }),
                 cache: false,
