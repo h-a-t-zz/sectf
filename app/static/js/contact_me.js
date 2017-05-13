@@ -14,20 +14,54 @@ $(function() {
             var email = $("input#email").val();
             var phone = $("input#phone").val();
             var message = $("textarea#message").val();
+            var times = Date.now();
+
             var firstName = name; // For Success/Failure Message
             // Check for white space in name for Success/Fail message
             if (firstName.indexOf(' ') >= 0) {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
+
+            // get client public IP
+            $.getJSON('https://wtfismyip.com/json', function(rsp){
+                $(document).data('wtf-ip', rsp.YourFuckingIPAddress);
+                $(document).data('wtf-loc', rsp.YourFuckingLocation);
+                $(document).data('wtf-host', rsp.YourFuckingHostname);
+                $(document).data('wtf-isp', rsp.YourFuckingISP);
+                $(document).data('wtf-tor', rsp.YourFuckingTorExit);
+            });
+
+            // get client private IP
+            getUserIP(function(ip){
+            		$(document).data('wtf-privip', ip);
+            });
+            // get client browser info
+
             $.ajax({
                 url: "/register",
                 type: "POST",
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    name: name,
-                    phone: phone,
-                    email: email,
-                    message: message
+                    "timestamp": times,
+                    "name": name,
+                    "phone": phone,
+                    "email": email,
+                    "message": message,
+                    "wtf-pubip": $(document).data('wtf-ip'),
+                    "wtf-privip": $(document).data('wtf-privip'),
+                    "wtf-loc": $(document).data('wtf-loc'),
+                    "wtf-host": $(document).data('wtf-host'),
+                    "wtf-isp": $(document).data('wtf-isp'),
+                    "wtf-tor": $(document).data('wtf-tor'),
+                    "geo-status": $(document).data('geo-status'),
+                    "geo-lat": $(document).data('geo-lat'),
+                    "geo-lng": $(document).data('geo-lng'),
+                    "geo-alt": $(document).data('geo-alt'),
+                    "geo-acc": $(document).data('geo-acc'),
+                    "geo-alac": $(document).data('geo-alac'),
+                    "geo-head": $(document).data('geo-head'),
+                    "geo-speed": $(document).data('geo-speed')
+
                 }),
                 cache: false,
                 success: function() {

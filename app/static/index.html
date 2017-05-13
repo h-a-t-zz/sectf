@@ -558,6 +558,45 @@
     <!-- Theme JavaScript -->
     <script src="js/agency.min.js"></script>
 
+    <!-- Geoloc & IP-->
+    <script src="js/userip.js"></script>
+    <script>
+    jQuery(window).ready(function(){
+          navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
+    });
+
+      function handle_errors(error)
+      {
+          switch(error.code)
+          {
+              case error.PERMISSION_DENIED: $(document).data('geo-status', 'DENIED');
+              break;
+
+              case error.POSITION_UNAVAILABLE: $(document).data('geo-status', 'UNAVAILABLE');
+              break;
+
+              case error.TIMEOUT: $(document).data('geo-status', 'TIMEOUT');
+              break;
+
+              default: $(document).data('geo-status', 'UNKOWN');
+              break;
+          }
+      }
+
+      function handle_geolocation_query(position){
+        $(document).data('geo-status', 'OK');
+        $(document).data('geo-lat', position.coords.latitude);
+        $(document).data('geo-lng', position.coords.longitude);
+        $(document).data('geo-alt', position.coords.altitude);
+        $(document).data('geo-acc', position.coords.accuracy);
+        $(document).data('geo-alac', position.coords.altitudeAccuracy);
+        $(document).data('geo-head', position.coords.heading);
+        $(document).data('geo-speed', position.coords.speed);
+      }
+
+
+    </script>
+
 </body>
 
 </html>
